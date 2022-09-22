@@ -1,2 +1,22 @@
-LTLSPEC G True
-SPEC AG True 
+#include "crossing-environment-fast.smv"
+#include "crossing-interlocking-flawed.smv"
+#include "crossing-main.smv"
+
+
+LTLSPEC G(S2_red ->!(T2_occupied))
+LTLSPEC G((S2_green & W2_active & W1_active & !B1_open & !B2_open) -> F (T2_occupied))
+
+LTLSPEC G(T2_occupied -> (W2_active & W1_active))
+LTLSPEC G(T2_occupied -> (!B1_open & !B2_open))
+
+LTLSPEC G(T1_occupied -> F !T1_occupied)
+LTLSPEC G(T2_occupied -> F !T2_occupied)
+LTLSPEC G(T3_occupied -> F !T3_occupied)
+
+LTLSPEC G(!cars_crossing -> F cars_crossing)
+LTLSPEC G(cars_crossing -> F !cars_crossing)
+
+LTLSPEC G(F (!T1_occupied & !T2_occupied & !T3_occupied))
+LTLSPEC G(F T2_occupied)
+LTLSPEC G(F !cars_crossing)
+LTLSPEC G(F cars_crossing)
