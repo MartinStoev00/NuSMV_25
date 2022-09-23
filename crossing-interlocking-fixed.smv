@@ -29,13 +29,13 @@ MODULE Interlocking(
     esac;
 
     next(S2_red)        := case
-        T2_occupied | T3_occupied : TRUE;
-        !B1_closed  : TRUE;
+        T1_occupied | T3_occupied : TRUE;
+        !B1_closed & !B2_closed  : TRUE;
         TRUE : FALSE;
     esac;
     next(S3_red)        := case
         T1_occupied | T2_occupied : TRUE;
-        !B1_closed  : TRUE;
+        !B1_closed & !B2_closed : TRUE;
         TRUE : FALSE;
     esac;
     next(B_request)    := case
