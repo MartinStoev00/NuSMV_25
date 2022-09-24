@@ -4,14 +4,14 @@ LTLSPEC G((S2_green & W2_active & W1_active & !B1_open & !B2_open) -> F (T2_occu
 LTLSPEC G(T2_occupied -> (W2_active & W1_active));
 LTLSPEC G(T2_occupied -> (!B1_open & !B2_open));
 
-LTLSPEC G(T1_occupied -> F !T1_occupied);
-//LTLSPEC G(T2_occupied -> F !T2_occupied);
-//LTLSPEC G(T3_occupied -> F !T3_occupied);
+LTLSPEC G((T1_occupied -> F !T1_occupied) | (!T1_occupied -> F T1_occupied));
+LTLSPEC G((T2_occupied -> F !T2_occupied) | (!T2_occupied -> F T2_occupied));
+LTLSPEC G((T3_occupied -> F !T3_occupied) | (!T3_occupied -> F T3_occupied));
 
-//LTLSPEC G(!cars_crossing -> F cars_crossing);
-//LTLSPEC G(cars_crossing -> F !cars_crossing);
+LTLSPEC G((!cars_crossing -> F cars_crossing) | (cars_crossing -> F !cars_crossing));
 
-//SPEC AG EF (!T1_occupied & !T2_occupied & !T3_occupied);
-//SPEC AG EF T2_occupied;
-//SPEC AG EF !cars_crossing;
-//SPEC AG EF cars_crossing;
+
+CTLSPEC EF (!T1_occupied & !T2_occupied & !T3_occupied);
+CTLSPEC EF T2_occupied;
+CTLSPEC EF !cars_crossing;
+CTLSPEC EF cars_crossing;

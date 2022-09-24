@@ -66,7 +66,7 @@ ASSIGN
             T3_occupied : TRUE;
             TRUE : FALSE;
         esac;
-
+FAIRNESS (T0_occupied);
 MODULE Car(W1_active,W2_active)
 VAR
       cars_crossing : boolean;
@@ -92,7 +92,7 @@ ASSIGN
     esac;
 
     next(closed) := case
-        request & !open : TRUE;
+        request & !open : {TRUE,FALSE};
         TRUE : FALSE;
     esac;
 
