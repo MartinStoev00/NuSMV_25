@@ -1,4 +1,4 @@
-LTLSPEC G(S2_red -> !T2_occupied);
+LTLSPEC G((S2_red  & !W2_active & !W1_active & B1_open & B2_open )-> !T2_occupied);
 LTLSPEC G((S2_green & W2_active & W1_active & !B1_open & !B2_open) -> F (T2_occupied));
 
 LTLSPEC G(T2_occupied -> (W2_active & W1_active));
