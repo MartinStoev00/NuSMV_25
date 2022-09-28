@@ -9,6 +9,7 @@ MODULE Environment(
     barrier1: Barrier(B1_request);
     barrier2: Barrier(B2_request);
  DEFINE
+    T0_occupied := train.T0_occupied;
     T1_occupied := train.T1_occupied;
     T2_occupied := train.T2_occupied;
     T3_occupied := train.T3_occupied;
@@ -89,7 +90,7 @@ ASSIGN
     init(closing) :=FALSE;
     next(open)   := case
         request : FALSE;
-        !request & !closed : TRUE;
+        !request & !closed & !closing : TRUE;
         TRUE : open;
     esac;
     next(closing):=case
@@ -98,8 +99,8 @@ ASSIGN
         TRUE: {TRUE, FALSE};
     esac;
     next(closed) := case
-        !closing & !open : TRUE;
+        closing & !open : TRUE;
+        closed:{TRUE, FALSE};
         TRUE : FALSE;
     esac;
-
-FAIRNESS(closing=FALSE);
+FAIRNESS(closed=TRUE);
