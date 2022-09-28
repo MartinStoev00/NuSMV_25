@@ -23,7 +23,7 @@ MODULE Interlocking(
     init(B_request)     := FALSE;
     init(W_active)      := FALSE;
     next(W_active)      := case
-        T1_occupied | T3_occupied : TRUE;
+        T1_occupied : TRUE;
         W_active & ( T2_occupied | !B1_open | !B2_open ) : TRUE;
         TRUE : FALSE;
     esac;
@@ -39,8 +39,9 @@ MODULE Interlocking(
         TRUE : FALSE;
     esac;
     next(B_request)    := case
-        (T1_occupied | T2_occupied | T3_occupied) & W_active : TRUE;
-        !(T1_occupied | T2_occupied | T3_occupied) : FALSE;
+        (T1_occupied | T2_occupied ) & W_active : TRUE;
+        !(T1_occupied | T2_occupied) : FALSE;
+        T3_occupied: FALSE;
         TRUE : B_request;
     esac;
 

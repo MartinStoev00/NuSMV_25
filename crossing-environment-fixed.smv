@@ -67,7 +67,7 @@ ASSIGN
             T3_occupied : TRUE;
             TRUE : FALSE;
         esac;
-
+FAIRNESS(T0_occupied);
 MODULE Car(W1_active,W2_active)
 VAR
       cars_crossing : boolean;
@@ -77,30 +77,24 @@ ASSIGN
             !W1_active | !W2_active : {TRUE,FALSE};
             TRUE : FALSE;
       esac;
-
+FAIRNESS (cars_crossing);
 MODULE Barrier(request)
 VAR
     open : boolean;
     closed : boolean;
-    closing: boolean;
 
 ASSIGN
     init(open):= TRUE;
     init(closed) := FALSE;
-    init(closing) :=FALSE;
     next(open)   := case
         request : FALSE;
-        !request & !closed & !closing : TRUE;
+        !request & !closed: TRUE;
         TRUE : open;
     esac;
-    next(closing):=case
-        request: TRUE;
-        !closing: FALSE;
-        TRUE: {TRUE, FALSE};
-    esac;
+
     next(closed) := case
-        closing & !open : TRUE;
-        closed:{TRUE, FALSE};
+        request & !open:{TRUE,FALSE};
+        closed & request: TRUE;
         TRUE : FALSE;
     esac;
 FAIRNESS(closed=TRUE);
