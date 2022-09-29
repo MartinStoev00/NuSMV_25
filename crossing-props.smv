@@ -1,3 +1,7 @@
+LTLSPEC G(!W2_active -> W2_active);
+LTLSPEC G(!W1_active -> W1_active);
+LTLSPEC G(W2_active -> !W2_active);
+LTLSPEC G(W1_active -> !W1_active);
 LTLSPEC G((S2_red  & W2_active & W1_active & B1_open & B2_open )-> !T2_occupied);
 LTLSPEC G(!(cars_crossing & T2_occupied));
 LTLSPEC G((S2_green & !W1_active & !W2_active & B1_closed & B2_closed) -> (T2_occupied));
